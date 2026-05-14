@@ -1,75 +1,51 @@
 # Ofox-Docs
 
-> ⚠️ Showcase Only — Core implementation not included.
+> **Showcase** — ~15% skeleton. Core implementation not included.
 
-Developer documentation site for [OfoxAI](https://ofox.ai) — a unified API gateway that provides a single interface to 100+ large language models. This repository showcases the public-facing documentation built from scratch by the author during an internship at OfoxAI.
-
-**Live site:** <https://ofox.ai/docs>
-
----
-
-## Overview
-
-OfoxAI lets developers call any supported LLM through a unified, OpenAI-compatible API endpoint. This docs site is the canonical reference for integrating with the platform — from first API call to production deployment.
+Source for the [OfoxAI developer documentation](https://ofox.ai/docs). OfoxAI is a unified API gateway providing access to 100+ LLMs through a single endpoint. This site is not open source; the repository demonstrates the documentation infrastructure.
 
 ## Stack
 
-| Layer | Technology |
-|---|---|
-| Framework | Next.js 15 (App Router) |
-| Docs engine | Nextra 4 |
-| Language | TypeScript |
-| Content format | MDX |
-| Styling | Tailwind CSS |
-| Hosting | Vercel |
+- Next.js 15
+- Nextra 4
+- TypeScript
+- MDX
 
-## Features
+## Scope
 
-### Internationalization
-The site ships in **10 languages**, with full content parity across:
+- 10 languages (i18n via Nextra)
+- 20+ tool integration tutorials (OpenAI SDK, LangChain, LlamaIndex, etc.)
+- API reference, quickstart, model catalog, pricing, changelog
 
-`zh` · `en` · `ja` · `ko` · `fr` · `de` · `es` · `pt` · `ru` · `zh-TW`
+## Local Development
 
-### Documentation Coverage
-
-**Quick-start guides**
-Step-by-step onboarding for the three most common protocol families:
-- OpenAI-compatible (`/v1/chat/completions`)
-- Anthropic Messages API
-- Google Gemini API
-
-**API Reference**
-Complete endpoint documentation including request/response schemas, authentication, rate limits, error codes, and model capability tables.
-
-**Integration Tutorials**
-20+ guides covering popular tools and frameworks:
-
-| Category | Tools |
-|---|---|
-| AI coding assistants | Claude Code, Cursor, Cline, Zed, GitHub Copilot |
-| Frameworks | LangChain, LlamaIndex |
-| Clients & plugins | OpenWebUI, Continue, ChatBox |
-| And more | cherry-picked by community demand |
-
-## Architecture
-
-```
-MDX content (per-locale)
-        │
-        ▼
-  Nextra 4 (file-system routing, sidebar generation)
-        │
-        ▼
-  Next.js 15 (App Router, SSG/ISR)
-        │
-        ▼
-  Vercel Edge Network  ──►  ofox.ai/docs
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build
+npm run lint
 ```
 
-## Status
+## Structure
 
-This is a showcase repository. The documentation source is maintained as an internal project at OfoxAI. The live site at <https://ofox.ai/docs> reflects the current published version.
+```
+Ofox-Docs/
+├── pages/
+│   ├── en/          # English source pages
+│   ├── zh/          # Chinese translations
+│   └── ...          # 8 additional locales
+├── components/      # custom MDX components
+├── public/          # static assets
+├── theme.config.tsx # Nextra theme config
+└── next.config.js
+```
 
-## Author
+## Adding a Page
 
-Built during an internship at OfoxAI. All content, structure, and tooling choices were designed and implemented by the author.
+1. Create an MDX file under `pages/<locale>/`.
+2. Add the route to `_meta.json` in the same directory.
+3. If adding a new tutorial, follow the template in `pages/en/integrations/_template.mdx`.
+
+## Note
+
+This repository is a showcase of the documentation site architecture. The live site is maintained privately.
